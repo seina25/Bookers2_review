@@ -29,7 +29,13 @@
             </p>
           <% end %>
         </td>
+        <td>
+          <%= link_to book_path(book) do %>
+            <%= book.book_comments.count %>
+          <% end %>:comment
+        </td>
       </tr>
     <% end %>
   </tbody>
+  </div>
 </table>
