@@ -8,8 +8,16 @@
 	  <th>introduction</th>
 	  <th><%= user.introduction %></th>
   </tr>
+  <tr>
+    <th>Followings</th>
+    <th><%= link_to user.followings.count, user_following_path(user) %></th>
+  </tr>
+  <tr>
+    <th>Followers</th>
+    <th><%= link_to user.followers.count, user_followers_path(user) %></th>
+  </tr>
 </table>
 
 <div class='row'>
-  <%= link_to '',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog" %>
+  <%= link_to '',edit_user_path(user), class: "btn btn-outline-secondary btn-block fas fa-user-cog" %>
 </div>
