@@ -4,6 +4,7 @@ class RelationshipsController < ApplicationController
   def create
    following = current_user.follow(params[:user_id])
    if following.save
+    @user = User.find(params[:user_id])
      redirect_to user_path(@user), notice: "You succeeded in following."
    else
      redirect_back(fallback_location: root_path)
@@ -14,7 +15,8 @@ class RelationshipsController < ApplicationController
   def destroy
    following = current_user.unfollow(params[:user_id])
    if following.destroy
-     redirect_to user_path(@user), notice: "You have successfully unfollowed."
+     @user = User.find(params[:user_id])
+     redirect_to user_path(@user), notice: 'You have successfully unfollowed.'
    else
      redirect_back(fallback_location: root_path)
    end

@@ -14,28 +14,25 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
 
   # 与フォロー（能動的）
-  has_many :reverse_of_relationships, class_name: 'Reletionship', foreign_key: 'follower_id', dependent: :destroy
-  has_many :followings, through: :relationships, source: :followed
-  
+  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
+  has_many :followings, through: :reverse_of_relationships, source: :followed
+
   # 被フォロー（受動的）
-  has_many :relationships, class_name: 'Reletionship', foreign_key: 'followed_id', dependent: :destroy
+  has_many :relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
   has_many :followers, through: :relationships, source: :follower
-  
+
   # フォローする・外す・フォローしているか確認を行うメソッドたち
   # ユーザをフォローする
   def follow(user_id)
-    unless self == user_id
-      self.relationships.find_or_create_by(followed_id: user_id)
-    end
+    reverse_of_relationships.create(followed_id: user_id)
   end
   # ユーザのフォロー外す
   def unfollow(user_id)
-    relationship = self.relationships.find_by(followed_id: user_id)
-    relationship.destroy if relationship
+    reverse_of_relationships.find_by(followed_id: user_id).destroy
   end
   # フォローしていたらtrueを返す
   def following?(user)
-    self.following.include?(user)
+    followings.include?(user)
   end
-  
+
 end
