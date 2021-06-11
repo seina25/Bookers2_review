@@ -9,16 +9,9 @@
   <%= book_comment.created_at.strftime('%Y%m%d') %>
   <%= book_comment.comment %>
    <% if book_comment.user == current_user %>
-  <div class="comment-delete">
-    <%= link_to "delete", book_book_comment_path(book_comment.book,book_comment), method: :delete %>
+  <div id="comment-delete_<% @book.id%>">
+    <%= link_to "delete", book_book_comment_path(book_comment.book,book_comment), method: :delete, remote: true , class: 'js-delete-comment-button', data: {confirm: 'よろしいですか'} %>
   </div>
     <% end %>
   <% end %>
-  </div>
-
-
-  <%= render 'layouts/errors', obj: comment %>
-  <%= form_with(model:[book, comment], local: true) do |f| %>
-    <%= f.text_area :comment, size:'80x8', placeholder: "Comment here" %><br>
-    <%= f.submit "Send" %>
-  <% end %>
+</div>
