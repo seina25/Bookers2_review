@@ -6,9 +6,9 @@ class BookCommentsController < ApplicationController
     @comment.book_id = @book.id
     if @comment.save
     else
-    @new_book = Book.new
-    @user = @book.user
-    render 'books/show'
+      @new_book = Book.new
+      @user = @book.user
+      render 'books/show'
     end
   end
 
@@ -17,7 +17,7 @@ class BookCommentsController < ApplicationController
     book_comment = @book.book_comments.find(params[:id])
     if book_comment.destroy
     else
-    render 'books/show'
+      render 'books/show'
     end
   end
 
