@@ -29,8 +29,6 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
   end
 
-
-
   def update
     @book = Book.find(params[:id])
     if @book.update(book_params)
