@@ -11,7 +11,6 @@ class UsersController < ApplicationController
     @users = User.all
     @book = Book.new
     @user = current_user
-
   end
 
   def edit
